@@ -1,8 +1,5 @@
-'''
-Questo script ci permette di scaricare foto da Flickr in base a degli specifici tag.
-'''
-
 import cv2
+from cv2 import cv2
 import flickrapi
 import ftfy
 import json
@@ -17,20 +14,25 @@ from shutil import copyfile
 import time, datetime
 from urllib.request import urlretrieve
 
-# questa funzione verifica l'esistenza di una foto scaricata 
-def isMissing(imagePath):
+# To obtain your own api_key and api_secret apply here: https://www.flickr.com/services/apps/create/apply/? 
+api_key = u''
+api_secret = u''
+path="" # Insert the path where to store the retreived images.
+tag="sculpture, marble, white"  # Tag, or list of tags, associated to the photos to retreive.
+
+
+
+def isMissing(imagePath): # This function verifies the exsistence of a downloaded photo.
     for referenceImage in nullImages:
         refImgPath = "data/" + referenceImage
         refImg = cv2.imread(refImgPath)
         curImg = cv2.imread(imagePath)
-        
-            
+          
         refImg = cv2.cvtColor(refImg, cv2.COLOR_BGR2GRAY)
         curImg = cv2.cvtColor(curImg, cv2.COLOR_BGR2GRAY)
         
         curImg = cv2.resize(curImg,(refImg.shape[1], refImg.shape[0]))
-        
-        
+      
         s = ssim(refImg,curImg)
         print ("SSIM with null picture:\t"+str(s))
         if s>0.99:
@@ -38,23 +40,10 @@ def isMissing(imagePath):
     return False
     
 
-def sanitize_text(s):
-    s = str(s)
-    s = s.replace("&#39;"," ")
-    s = s.replace("'"," ")
-    s = s.replace("’"," ")
-    s = s.replace("\""," ")
-    s = s.replace("\n"," ")
-    s = ftfy.fix_text(s)
-    return s
-        
 def photo_crawling(photo_id,):
-    
     try:
-   
         check = False
         print ("\nProcessing photo with FlickrId:\t" +photo_id)
-
         print ("Getting photo info...")
         response = flickr.photos.getInfo(api_key = api_key, photo_id=photo_id)            
         print ("request result:\t"+response['stat'])
@@ -62,11 +51,10 @@ def photo_crawling(photo_id,):
         ext = 'jpg'
         photo_url = 'https://farm'+str(photo_info['farm'])+'.staticflickr.com/'+str(photo_info['server'])+'/'+photo_id+'_'+str(photo_info['secret'])+'_b.'+ext
        
-  
-        
-        # Download the photo and check if still available
-        img_path = "images/"+photo_id+".jpg" 
+        # Download the photo and check if still available.
+        img_path = path+"/"+photo_id+".jpg" 
         httpRes = urlretrieve(photo_url, img_path)
+ 
         abs_path = os.path.abspath(img_path)
             
         check = isMissing(img_path)
@@ -75,7 +63,6 @@ def photo_crawling(photo_id,):
             copyfile(abs_path, "missing/"+photo_id)
             os.remove(abs_path)
             abs_path = os.path.abspath("missing/"+photo_id)            
-        
         return True   
  
     except Exception as e:
@@ -85,7 +72,6 @@ def photo_crawling(photo_id,):
         
 
 def photos_analysis(images_list):
-
     err_list = []
 
     print ("\n\nSTART\n************\tUTC\t"+str(datetime.datetime.utcnow())+"\t************")
@@ -113,33 +99,20 @@ def photos_analysis(images_list):
     print ("\n\nEND\n************\tUTC\t"+str(datetime.datetime.utcnow())+"\t************")
 
 
-#-------------------------------------------------------------------------------------------------------
+if not os.path.exists(path):
+    os.makedirs(path)
 
-# Null image name
+# Null image name.
 nullImages= ["flickrMissing", "flickrNotFound"]
 
-# Credenziali Flickr
-api_key = u'6566c2c10b2ca094b9636585d96aeb79'
-api_secret = u'd237a27b1cf58bc2'
-
-# Le seguenti due righe sono state eseguite una volta sola per generare il token di autorizzazione    
-flickr = flickrapi.FlickrAPI(api_key, api_secret)
-flickr.authenticate_via_browser(perms='read')
-
+# Flickr calls.
 flickr = flickrapi.FlickrAPI(api_key, api_secret, format='parsed-json')
-
-
-#-----------------------------------------------------------------------DOWNLOAD IMMAGINI
-tag="sculpture, marble, white" #lo script è stato eseguito più volte cambiando questo tag per scaricare anche immagini
-                #di edifici e sculture.
-                
 response = flickr.photos.search(api_key = api_key,tags=tag, tag_mode='all' )
 
-#Creo una lista di id delle foto che verranno scaricate
+#Create a list of the ids of the photos to retrieve .
 photo_list=[]
 for record in response['photos']['photo']:
     s=record["id"]
     photo_list.append(s)
-#--------------------
 
 photos_analysis(photo_list)
