@@ -18,8 +18,7 @@ from urllib.request import urlretrieve
 api_key = u''
 api_secret = u''
 path="" # Insert the path where to store the retreived images.
-tag="sculpture, marble, white"  # Tag, or list of tags, associated to the photos to retreive.
-
+tag=""  # Tag, or list of tags (separated by a comma), associated to the photos to retreive.
 
 
 def isMissing(imagePath): # This function verifies the exsistence of a downloaded photo.
