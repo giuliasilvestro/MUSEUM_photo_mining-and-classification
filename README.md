@@ -1,4 +1,4 @@
-# photo-mining-and-classification
+# Photo Mining and Classification Methods
 The aim of the project is to create a classifier that manages to classify, with the best possible performance, images into three categories: buildings, sculptures, paintings.
 
 ## DATA
