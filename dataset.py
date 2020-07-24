@@ -6,6 +6,7 @@ import numpy as np
 from copy import copy
 
 class Dataset:
+    
     def __init__(self,path_to_dataset):
         self.path_to_dataset = path_to_dataset
         classes=sorted(os.listdir(path_to_dataset))
@@ -40,15 +41,15 @@ class Dataset:
         self.paths=new_paths
     
     def splitTrainingTest(self,percent_train):
-        training_paths=dict() # Initialize the dictionaries that will contain...
-        test_paths=dict() # ...the paths of the training and test set.
-        for cl in self.getClasses(): # For each class... 
-            paths=self.paths[cl] # ... obtain a list of the paths relative to the current class.  
-            split_idx=int(len(paths)*percent_train) # Index at which the array is split.
-            training_paths[cl]=paths[0:split_idx] # Save the first "split_idx" images in the training set...
-            test_paths[cl]=paths[split_idx::] # ...and the rest in the test set.
-        training_dataset = copy(self) # To create the training dataset, copy the current instance of this dataset.
-        training_dataset.paths=training_paths # Update list of paths.
-        test_dataset = copy(self) # Do the same for the test set.
+        training_paths=dict()                               # Initialize the dictionaries that will contain...
+        test_paths=dict()                                   # ...the paths of the training and test set.
+        for cl in self.getClasses():                        # For each class... 
+            paths=self.paths[cl]                            # ... obtain a list of the paths relative to the current class.  
+            split_idx=int(len(paths)*percent_train)         # Index at which the array is split.
+            training_paths[cl]=paths[0:split_idx]           # Save the first "split_idx" images in the training set...
+            test_paths[cl]=paths[split_idx::]               # ...and the rest in the test set.
+        training_dataset = copy(self)                       # To create the training dataset, copy the current instance of this dataset.
+        training_dataset.paths=training_paths               # Update list of paths.
+        test_dataset = copy(self)                           # Do the same for the test set.
         test_dataset.paths=test_paths
         return training_dataset,test_dataset
