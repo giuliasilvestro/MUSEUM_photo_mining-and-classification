@@ -22,32 +22,32 @@ Three different classifier models were used:
 
 ## RESULTS
 
-    **1-NN**, accuracy: **0.68**, Confusion Matrix:
+    1-NN accuracy: 0.68 Confusion Matrix:
     [[20  3  4]
      [ 4 24  5]
      [11  4 22]]
 
-    **3-NN**, accuracy: **0.70**, Confusion Matrix:
+    3-NN accuracy: 0.70 Confusion Matrix:
     [[22  0  5]
      [ 8 23  2]
      [11  3 23]]
 
-    **5-NN**, accuracy: **0.67**, Confusion Matrix:
+    5-NN accuracy: 0.67 Confusion Matrix:
 
     [[23  0  4]
      [ 8 21  4]
      [11  5 21]]
 
-    **7-NN**, accuracy: **0.65**, Confusion Matrix:
+    7-NN accuracy: 0.65 Confusion Matrix:
     [[21  1  5]
      [10 20  3]
      [12  3 22]]
-    **9-NN**, accuracy: **0.68**, Confusion Matrix:
+    9-NN accuracy: 0.68 Confusion Matrix:
     [[21  2  4]
      [ 8 23  2]
      [11  4 22]]
 
-    **NAIVE BAYES**: Accuracy: **0.71**, Confusion Matrix:/n
+    NAIVE BAYES Accuracy: 0.71 Confusion Matrix:/n
     [[18  4  5]
      [ 2 22  9]
      [ 2  6 29]]
