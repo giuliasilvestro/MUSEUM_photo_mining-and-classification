@@ -15,10 +15,10 @@ import time, datetime
 from urllib.request import urlretrieve
 
 # To obtain your own api_key and api_secret apply here: https://www.flickr.com/services/apps/create/apply/? 
-api_key = u'191ca81808da9841916b678df9fe217e'
-api_secret = u'b4c06c93a5cdfadb'
-path="prova" # Insert the path where to store the retreived images.
-tag="hello"  # Tag, or list of tags (separated by a comma), associated to the photos to retreive.
+api_key = u''
+api_secret = u''
+path="" # Insert the path where to store the retreived images.
+tag=""  # Tag, or list of tags (separated by a comma), associated to the photos to retreive.
 
 
 def isMissing(imagePath): # This function verifies the exsistence of a downloaded photo.
