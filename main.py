@@ -22,7 +22,7 @@ def extract_features(dataset):
         for impath in paths:
             t1=time()                                # Current timestamp 
             im=sio.imread(impath,as_gray=True)       # Read images in gray-scale 
-            feats=daisy(im,step=10)                  # Extract feature 
+            feats=daisy(im,step=10)                   # Extract feature 
             feats=feats.reshape((-1,200))          
             features.append(feats)                   # Add features to the list 
             t2=time()                                # Current timestamp 
@@ -43,9 +43,8 @@ def extract_features(dataset):
     return stacked
 
 def extract_and_describe(img,kmeans):
-    features=daisy(rgb2gray(img),step=10).reshape((-1,200))            # Extract features from one image 
-    features=daisy(rgb2gray(img),step=10).reshape((-1,200))            # Assign the local features to the vocabulary words
-    assignments=kmeans.predict(features)
+    features=daisy(rgb2gray(img),step=10).reshape((-1,200))             # Extract features from one image           
+    assignments=kmeans.predict(features)                               # Assign the local features to the vocabulary words
     histogram,_=np.histogram(assignments,bins=500,range=(0,499))       # Compute the histogram
     return histogram
 
@@ -97,8 +96,9 @@ def describe_dataset(dataset,kmeans):
     t2=time()    
     print ("Elapsed time {0:0.2f}".format(t2-t1))    
     return X,y,paths
+
 dataset=Dataset('dataset')
-classes=["edifici","quadri","sculture"]
+classes=["artifacts","paintings","sculptures"]
 print("Total images: %d" % dataset.getLength())
 training_set, test_set = dataset.splitTrainingTest(0.7)                 # 70% training, 30% test
 print("Total images in training set: %d" % training_set.getLength())
