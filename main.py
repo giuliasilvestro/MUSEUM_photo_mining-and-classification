@@ -97,15 +97,15 @@ def describe_dataset(dataset,kmeans):
     print ("Elapsed time {0:0.2f}".format(t2-t1))    
     return X,y,paths
 
-dataset=Dataset('dataset')
+
+## EXTRACTION OF FEATURES FROM THE TRAINING SET AND CONSTRUCTION OF THE VOCABULARIES ##
+dataset_path="dataset/dataset"
+dataset=Dataset(dataset_path)
 classes=["artifacts","paintings","sculptures"]
 print("Total images: %d" % dataset.getLength())
 training_set, test_set = dataset.splitTrainingTest(0.7)                 # 70% training, 30% test
 print("Total images in training set: %d" % training_set.getLength())
 print("Total images in test set: %d" % test_set.getLength())
-
-
-## EXTRACTION OF FEATURES FROM THE TRAINING SET AND CONSTRUCTION OF THE VOCABULARIES ##
 
 # Extract the features from all images in the dataset
 training_local_features = extract_features(training_set)
