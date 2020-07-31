@@ -22,7 +22,7 @@ def extract_features(dataset):
         for impath in paths:
             t1=time()                                # Current timestamp 
             im=sio.imread(impath,as_gray=True)       # Read images in gray-scale 
-            feats=daisy(im,step=10)                   # Extract feature 
+            feats=daisy(im,step=10)                  # Extract feature 
             feats=feats.reshape((-1,200))          
             features.append(feats)                   # Add features to the list 
             t2=time()                                # Current timestamp 
@@ -43,7 +43,7 @@ def extract_features(dataset):
     return stacked
 
 def extract_and_describe(img,kmeans):
-    features=daisy(rgb2gray(img),step=10).reshape((-1,200))             # Extract features from one image           
+    features=daisy(rgb2gray(img),step=10).reshape((-1,200))            # Extract features from one image           
     assignments=kmeans.predict(features)                               # Assign the local features to the vocabulary words
     histogram,_=np.histogram(assignments,bins=500,range=(0,499))       # Compute the histogram
     return histogram
