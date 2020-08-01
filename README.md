@@ -1,5 +1,5 @@
 # MUSEUM - Photo Mining and Classification Methods
-The aim of the project is to create a classifier that classifies, with the best possible performance, images of objects commonly found in museums, divided into 3 categories: **artifacts**, **sculptures**, **paintings**.
+The aim of the project is to train a classifier that classifies, with the best possible performance, images of objects commonly found in museums, divided into 3 categories: **artifacts**, **sculptures**, **paintings**.
 
 ## DATA
 The dataset consists of 110 images belonging to the 'paintings' category, 89 to the 'artifacts' category and 121 to the 'sculptures' category. The images that make up the dataset were obtained using the Flickr API: social media that allows members to share personal photographs. (code: download_images.py).
